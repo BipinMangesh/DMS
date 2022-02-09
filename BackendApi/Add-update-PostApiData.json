@@ -43,7 +43,7 @@
           "type": "ORIGINALS"
         },
         {
-          "docNumbe": "Doc5",
+          "docNumber": "Doc5",
           "description": "JOURNEY REQUEST, DPR & APPROVAL OT REQUEST",
           "TransmittalDetailid": 5,
           "rev": 1,
