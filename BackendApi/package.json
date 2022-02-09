@@ -1,0 +1,26 @@
+{
+  "name": "nodejsapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon api.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "cors": "2.8.1",
+    "express": "~4.0.0",
+    "express-fileupload": "^1.1.9",
+    "lodash": "^4.17.19",
+    "morgan": "^1.9.1",
+    "mssql": "^6.2.1",
+    "nodemailer": "^6.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "keywords": [],
+  "author": "Bipin Singh",
+  "license": "ISC"
+}
