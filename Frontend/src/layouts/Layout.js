@@ -28,14 +28,15 @@ const routes = [
 		isPrivate: false,
 	},
 	 {
-		path: '/dashboard',
+		path: '/',
 		component: Home,
 		isPrivate: true,
-	}, 
+	},
+	  
 	 {
 		path: '/*',
-		component: Login,
-		isPrivate: false,
+		component: Home,
+		isPrivate: true,
 	},
 ];
 

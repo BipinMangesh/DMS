@@ -10,6 +10,7 @@ import SidePanelModal from '../../side-panel/SidePanelModal';
 import { getPageName } from '../../../helpers/utils';
 import Dashboard from './dashboard';
 
+const Transmittals=loadable(()=>import('./../transmittals'))
 const Home = ({ location }) => {
     const { isFluid, isVertical, navbarStyle } = useContext(AppContext);
     const isKanban = getPageName('kanban');
@@ -25,11 +26,14 @@ const Home = ({ location }) => {
               <NavbarTop />
               <Switch>
                 <Route path="/dashboard" exact component={Dashboard} />
+                <Route path="/transmittals" exact component= {Transmittals} />
+                <Route path="/" exact component={Dashboard} />
+                
                {/*  <DashboardRoutes /> */}
               </Switch>
               {!isKanban && <Footer />}
             </div>
-            <SidePanelModal path={location.pathname} />
+            {/* <SidePanelModal path={location.pathname} /> */}
         </div>
       );
 

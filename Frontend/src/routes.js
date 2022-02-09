@@ -2,7 +2,19 @@ import { version } from './config';
 
 
 export const buildMenu=()=>{
-  return [homeRoutes,authenticationRoutes]
+
+  return [{
+    name: 'Home',
+    to: '/dashboard',
+    exact: true,
+    icon: 'chart-pie'
+  },{
+    name: 'Transmittals',
+    to: '/transmittals',
+    exact: true,
+    icon: 'chart-pie'
+
+  }];
 }
 
 export const homeRoutes = {
