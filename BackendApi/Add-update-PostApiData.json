@@ -3,12 +3,12 @@
     {
       "wonNo": "AS2012",
       "wonTitle": "OFFSHORE MAINTENANCE CONTRACT - WORK PACK PREPARATION FOR AKER SOLUTIONS",
-      "Transmittalid": 1,
+      "transmittalid": 1,
       "transmittalNo": 1,
-      "date ": "03/02/22",
-      "from ": "CALVIN TAN CHIEW SENG",
-      "to ": "BSP SEBASTIAN FOO, AER/77X",
-      "TransmittalDetailData": [
+      "date": "03/02/22",
+      "from": "CALVIN TAN CHIEW SENG",
+      "to": "BSP SEBASTIAN FOO, AER/77X",
+      "transmittalDetailData": [
 
         {
           "docNumbe": "Doc1",
@@ -16,7 +16,7 @@
           "TransmittalDetailid": 1,
           "rev": 1,
           "status": "03/02/22",
-          "type ": "ORIGINALS"
+          "type": "ORIGINALS"
         },
         {
           "docNumbe": "Doc2",
@@ -24,7 +24,7 @@
           "TransmittalDetailid": 2,
           "rev": 1,
           "status": "03/02/22",
-          "type ": "ORIGINALS"
+          "type": "ORIGINALS"
         },
         {
           "docNumbe": "Doc3",
@@ -32,7 +32,7 @@
           "TransmittalDetailid": 3,
           "rev": 1,
           "status": "03/02/22",
-          "type ": "ORIGINALS"
+          "type": "ORIGINALS"
         },
         {
           "docNumbe": "Doc4",
@@ -40,7 +40,7 @@
           "TransmittalDetailid": 4,
           "rev": 1,
           "status": "03/02/22",
-          "type ": "ORIGINALS"
+          "type": "ORIGINALS"
         },
         {
           "docNumbe": "Doc5",
@@ -48,7 +48,7 @@
           "TransmittalDetailid": 5,
           "rev": 1,
           "status": "03/02/22",
-          "type ": "ORIGINALS"
+          "type": "ORIGINALS"
         }
       ]
     }   

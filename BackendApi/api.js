@@ -46,7 +46,8 @@ router.route('/Transmittal/:id').get((request,response)=>{
 })
 
 router.route('/Transmittal').post((request,response)=>{
-   dboperations.addEditTransmittal(request.transmittal).then(result => {
+   let data=request.body;
+   dboperations.addEditTransmittal(data).then(result => {
       response.json(result);
    })
 })

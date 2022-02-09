@@ -30,20 +30,36 @@ async function getTransmittal(transmittalid) {
 }
 
 
-async function addEditTransmittal(Transmittal) {
-
+async function addEditTransmittal(Transmittal) {  
+  
     try {
+
+        let detail=Transmittal.transmittalDetailData;
         let pool = await sql.connect(config);
         let insertaTransmittal = await pool.request()
-            .input('transmittalid', sql.Int, Transmittal.transmittalid)
+            .input('transmittalid', sql.NVarChar, Transmittal.transmittalid)
             .input('wonNo', sql.NVarChar, Transmittal.wonNo)
-            .input('wonTitle', sql.Int, Transmittal.wonTitle)
+            .input('wonTitle', sql.NVarChar, Transmittal.wonTitle)
             .input('transmittalNo', sql.NVarChar, Transmittal.transmittalNo)
             .input('date', sql.Date, Transmittal.date)
             .input('from', sql.NVarChar, Transmittal.from)
             .input('to', sql.NVarChar, Transmittal.to)
-            .execute('sp_InsertTransmittal');//sp InsertOrders
-        return insertaTransmittal.recordsets;
+            .query(' INSERT INTO [dbo].[Transmittal] ([wonNo],[wonTitle] ,[transmittalNo],[date],[from],[to]) VALUES (@wonNo ,@wonTitle ,@transmittalNo ,@date  ,@from ,@to) SELECT SCOPE_IDENTITY() AS transmittalid');//sp InsertOrders
+          let pkid=  insertaTransmittal.recordsets.transmittalid;
+          detail.map( item =>{
+           console.log("Item",item);
+            let pool = await sql.connect(config);
+            let insertaTransmittalDetail = await pool.request()
+                .input('docNumbe', sql.NVarChar, item.docNumber)
+                .input('description', sql.NVarChar, item.description)
+                .input('rev', sql.NVarChar, item.rev)
+                .input('status', sql.NVarChar, item.status)
+                .input('type', sql.NVarChar, item.type)
+                .input('transmittalid', sql.Int, pkid)             
+                .query('INSERT INTO [dbo].[transmittalDetail] ([docNumber],[description],[rev],[status],[type],[transmittalid]) VALUES (@docNumbe,@description,@rev,@status,@type,@transmittalid) ');//sp InsertOrders
+                insertaTransmittalDetail.recordset;
+          });
+          return pkid;
     }
     catch (err) {
         console.log(err);
@@ -57,7 +73,7 @@ async function deleteTransmittal(transmittalid) {
         let pool = await sql.connect(config);
         let deleteTransmittal = await pool.request()
             .input('transmittalid', sql.Int, transmittalid)          
-            .execute('sp_DeleteTransmittal');//sp InsertOrders
+            .query('sp_DeleteTransmittal');//sp InsertOrders
         return deleteTransmittal.recordsets;
     }
     catch (err) {
