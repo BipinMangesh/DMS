@@ -10,7 +10,7 @@
   @return $raised;
 }
 @function toRem($px) {
-  @return ($px / 16);
+  @return calc($px / 16);
 }
 
 @mixin chrome-scrollbar {

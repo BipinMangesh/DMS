@@ -8,6 +8,7 @@ import loadable from '@loadable/component';
 import AppContext from '../../../context/Context';
 import SidePanelModal from '../../side-panel/SidePanelModal';
 import { getPageName } from '../../../helpers/utils';
+import { TransmittalProvider } from '../../../context/transmittalContext'
 import Dashboard from './dashboard';
 
 const Transmittals=loadable(()=>import('./../transmittals'))
@@ -26,7 +27,7 @@ const Home = ({ location }) => {
               <NavbarTop />
               <Switch>
                 <Route path="/dashboard" exact component={Dashboard} />
-                <Route path="/transmittals" exact component= {Transmittals} />
+                <Route path="/transmittals" exact render={()=><TransmittalProvider><Transmittals /></TransmittalProvider>} />
                 <Route path="/" exact component={Dashboard} />
                 
                {/*  <DashboardRoutes /> */}

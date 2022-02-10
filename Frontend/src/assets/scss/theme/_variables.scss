@@ -185,17 +185,17 @@ $type-scale: 1.2;
 $font-size-base: 1rem !default;
 $font-sizes: () !default;
 $font-sizes: (
-  '-2': 1 / pow($type-scale, 2) * $font-size-base,
-  '-1': 1 / $type-scale * $font-size-base,
+  '-2': calc(1 / pow($type-scale, 2) * $font-size-base),
+  '-1': calc(calc(1 / $type-scale) * $font-size-base),
   0: $font-size-base,
-  1: pow($type-scale, 1) * $font-size-base,
-  2: pow($type-scale, 2) * $font-size-base,
-  3: pow($type-scale, 3) * $font-size-base,
-  4: pow($type-scale, 4) * $font-size-base,
-  5: pow($type-scale, 5) * $font-size-base,
-  6: pow($type-scale, 6) * $font-size-base,
-  7: pow($type-scale, 7) * $font-size-base,
-  8: pow($type-scale, 8) * $font-size-base
+  1: calc(pow($type-scale, 1) * $font-size-base),
+  2: calc(pow($type-scale, 2) * $font-size-base),
+  3: calc(pow($type-scale, 3) * $font-size-base),
+  4: calc(pow($type-scale, 4) * $font-size-base),
+  5: calc(pow($type-scale, 5) * $font-size-base),
+  6: calc(pow($type-scale, 6) * $font-size-base),
+  7: calc(pow($type-scale, 7) * $font-size-base),
+  8: calc(pow($type-scale, 8) * $font-size-base)
 );
 
 $font-weight-thin: 100 !default;
@@ -215,7 +215,7 @@ $h4-font-size: map_get($font-sizes, 2) !default;
 $h5-font-size: map_get($font-sizes, 1) !default;
 $h6-font-size: map_get($font-sizes, '-1') !default;
 
-$headings-margin-bottom: ($spacer / 2) !default;
+$headings-margin-bottom: calc($spacer / 2) !default;
 $headings-font-family: $font-family-sans-serif !default;
 $headings-font-weight: $font-weight-medium !default;
 $headings-line-height: 1.2 !default;

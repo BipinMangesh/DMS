@@ -82,7 +82,7 @@
     height: $size;
     width: $size;
     .avatar-name {
-      font-size: #{$size / 3};
+      font-size: #{calc($size / 3)};
     }
     .avatar-emoji {
       font-size: #{$size};
@@ -142,7 +142,7 @@
       }
     }
     .rounded-soft {
-      border-radius: $size/6 !important;
+      border-radius: calc($size/6) !important;
     }
   }
 }
