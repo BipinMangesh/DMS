@@ -7,7 +7,6 @@ import SearchBox from './SearchBox';
 import TopNavRightSideNavItem from './TopNavRightSideNavItem';
 import NavbarTopDropDownMenus from './NavbarTopDropDownMenus';
 import { topNavbarBreakpoint } from '../../config';
-import autoCompleteInitialItem from '../../data/autocomplete/autocomplete';
 
 const NavbarTop = (props) => {
   const {
@@ -42,7 +41,7 @@ const NavbarTop = (props) => {
       expand={isTopNav && topNavbarBreakpoint}
     >
      
-      <Logo at="navbar-top" width={120} id="topLogo" />
+      <Logo at="navbar-top" width={140} id="topLogo" />
       {isTopNav ? (
         <Collapse navbar isOpen={navbarCollapsed} className="scrollbar">
           <Nav navbar>
@@ -52,7 +51,7 @@ const NavbarTop = (props) => {
       ) : (
         <Nav navbar className={`align-items-center d-none d-${topNavbarBreakpoint}-block`}>
           <NavItem>
-            <SearchBox autoCompleteItem={autoCompleteInitialItem} />
+            {/* <SearchBox autoCompleteItem={autoCompleteInitialItem} /> */}
           </NavItem>
         </Nav>
       )}

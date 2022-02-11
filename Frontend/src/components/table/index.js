@@ -51,7 +51,8 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 fuzzyTextFilterFn.autoRemove = (val) => !val;
 
 const RTable = ({ columns, data, loading = true }) => {
-  const [switchSearch, setSwitchSearch] = useState(false);
+  const showFilterSwitch=false;
+  const [switchSearch, setSwitchSearch] = useState(true);
   const toggleSwitchSearch = () => {
     setAllFilters([]);
     setSwitchSearch(!switchSearch);
@@ -112,6 +113,7 @@ const RTable = ({ columns, data, loading = true }) => {
 
   return (
     <>
+    { showFilterSwitch &&
       <div>
         <span className="float-right ">
           <CustomInput
@@ -125,6 +127,7 @@ const RTable = ({ columns, data, loading = true }) => {
           />
         </span>
       </div>
+}
       <Table {...getTableProps()} hover bordered responsive>
         <thead>
           {headerGroups.map((headerGroup) => (

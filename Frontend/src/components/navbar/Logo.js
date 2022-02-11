@@ -7,7 +7,7 @@ import logo from '../../assets/img/logos/logo-test.png';
 const Logo = ({ at, width, className, ...rest }) => {
   return (
     <Link
-      to="/dashboard"
+      to="/"
       className={classNames(
         'text-decoration-none',
         { 'navbar-brand text-left': at === 'navbar-vertical' },
@@ -20,7 +20,7 @@ const Logo = ({ at, width, className, ...rest }) => {
           'd-flex',
           {
             'align-items-center py-3': at === 'navbar-vertical',
-            'align-items-center': at === 'navbar-top',
+            'align-items-center ': at === 'navbar-top',
             'flex-center font-weight-extra-bold fs-5 mb-4': at === 'auth'
           },
           className

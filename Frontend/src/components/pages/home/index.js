@@ -27,8 +27,8 @@ const Home = ({ location }) => {
               <NavbarTop />
               <Switch>
                 <Route path="/dashboard" exact component={Dashboard} />
-                <Route path="/transmittals" exact render={()=><TransmittalProvider><Transmittals /></TransmittalProvider>} />
-                <Route path="/" exact component={Dashboard} />
+                <Route path="/transmittals" render={()=><TransmittalProvider><Transmittals /></TransmittalProvider>} />
+                <Route path="/" component={Dashboard} />
                 
                {/*  <DashboardRoutes /> */}
               </Switch>
