@@ -13,7 +13,7 @@ const transmittalRoutes = require("./routes/transmittalRoutes");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'views')));
+//app.use(express.static(path.join(__dirname, 'views')));
 app.use('', router);
 app.use(morgan('dev'));
 // enable files upload
@@ -22,17 +22,18 @@ app.use(fileUpload({createParentPath: true,  limits: {
    },
 }));
 
+//make uploads directory static
+app.use(express.static('uploads'));
 router.use((request,response,next)=>{
    console.log('middleware');
    next();
 })
 app.use(transmittalRoutes);
 
-app.use('/', (req,res, next)=>{
-   return res.sendFile(path.join(__dirname,'../views/index.html'));
-});
-//make uploads directory static
-app.use(express.static('uploads'));
+//app.use('/', (req,res, next)=>{
+  // return res.sendFile(path.join(__dirname,'../views/index.html'));
+//});
+
 
 
 

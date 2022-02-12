@@ -43,7 +43,7 @@ router.post('/api/Transmittal', async (req, res) => {
         let id= Transmittal.transmittalid   
         let Query=id>0?`UPDATE [dbo].[Transmittal]  SET [wonNo] = @wonNo ,
         [wonTitle] = @wonTitle,[transmittalNo] =@transmittalNo ,[date] = @date ,
-        [from] = @from ,[to] =@to WHERE transmittalid@transmittalid`
+        [from] = @from ,[to] =@to WHERE transmittalid=@transmittalid`
         :`INSERT INTO [dbo].[Transmittal] ([wonNo],[wonTitle] ,[transmittalNo],
           [date],[from],[to]) VALUES (@wonNo ,@wonTitle ,@transmittalNo ,@date
               ,@from ,@to) SELECT SCOPE_IDENTITY() AS transmittalid`;  
@@ -75,7 +75,7 @@ router.post('/api/Transmittal', async (req, res) => {
 async function inserDetailData(item,pkid) {
     try{
 
-            console.log("Item",item);  
+            //console.log("Item",item);  
             let pool = await sql.connect(config);
             let detail = await pool.request()
             .input('docNumber', sql.NVarChar, item.docNumber)
@@ -114,7 +114,7 @@ router.delete('/api/Transmittal/:id', async (req, res) => {
       let deleteTransmittal = await pool.request()
           .input('id', sql.Int, id)          
           .execute('DELETETRANSMITTAL');   
-      return  res.status(200).send({message:`Record added successfully !`});          
+      return  res.status(200).send({message:`Record deleted successfully !`});          
   }
   catch (error) {
     return  res.status(500).send({message: "Oops Something went wrong",error:error.message}); 
