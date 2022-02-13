@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 import { Button, ButtonGroup, Card, CardBody, CardFooter, Modal, ModalFooter,
   ModalHeader, ModalBody } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -68,6 +69,8 @@ const TransmittalList=(props)=>{
           {
             Header: 'Date',
             accessor: 'date',
+			Cell:({row})=>{              
+              return (<>{moment(row.original.date,'YYYY-MM-DD').format('DD/MM/YYYY')}</>)}
           },
           
           {
