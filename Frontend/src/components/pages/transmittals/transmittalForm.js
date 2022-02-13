@@ -16,13 +16,13 @@ const schema = yup.object({
   });
   
 const TransmittalForm=({ onCancelClick, onSubmitClick, defaultValues})=>{
-    const [transmittalDetailsData,setTransmittalDetailsData]=useState((defaultValues||{}).transmittalDetails);
+    const [transmittalDetailsData,setTransmittalDetailsData]=useState((defaultValues||{}).transmittalDetails||[]);
     useEffect(()=>{
         if(Object.keys(defaultValues).length > 0){
         setValue('wonNo',defaultValues.wonNo, { shouldValidate: true, shouldDirty: true });
         setValue('transmittalNo',defaultValues.transmittalNo, { shouldValidate: true, shouldDirty: true });
         setValue('wonTitle',defaultValues.wonTitle, { shouldValidate: true, shouldDirty: true });
-        setValue('date',defaultValues.date?moment(defaultValues.date,'DD/MM/YYYY').toDate():undefined, { shouldValidate: true, shouldDirty: true });
+        setValue('date',defaultValues.date?moment(defaultValues.date,'YYYY-MM-DD').toDate():undefined, { shouldValidate: true, shouldDirty: true });
         setValue('from',defaultValues.from, { shouldValidate: true, shouldDirty: true });
         setValue('to',defaultValues.to, { shouldValidate: true, shouldDirty: true });
         setTransmittalDetailsData((defaultValues||{}).transmittalDetails);        
@@ -34,7 +34,9 @@ const TransmittalForm=({ onCancelClick, onSubmitClick, defaultValues})=>{
         resolver: yupResolver(schema)
     });
     const onSubmit = data => {
-        console.log(data)
+        const submitData={...defaultValues, ...data};
+        submitData.transmittalDetailData=[...transmittalDetailsData];
+        onSubmitClick(submitData);        
     };
     
     return(<>
@@ -115,7 +117,7 @@ const TransmittalForm=({ onCancelClick, onSubmitClick, defaultValues})=>{
                                         const maxVal= Math.max.apply(Math, transmittalDetailsData.map((o)=> { return o.tdRecId; }))
                                             const detObj={
                                                 description: data.description,
-                                                docNumbe: data.docNumbe,
+                                                docNumber: data.docNumber,
                                                 rev: data.rev,
                                                 status: data.status,
                                                 tdRecId: (maxVal+1),

@@ -4,26 +4,26 @@ import {data} from '../components/pages/transmittals/testData';
 export const getAllTransmittals=async(dispatch)=>{
     try {
         dispatch({ type: 'REQUEST_PROCESS' });       
-        const formatedData=prepareFormatList(data);
-        const resp={data:[...formatedData]}
-        if(resp.data){
-            await dispatch({ type: 'FETCH_ALL_DATA', payload: resp.data });
+       
+        const resp=await getAll();
+        if(resp.status==200){
+             const formatedData=prepareFormatList(resp.data.data[0]||[]);
+            await dispatch({ type: 'FETCH_ALL_DATA', payload: [...formatedData] });
             return {error:false};
         }else{
-            const errorMsg='Something went wrong';
-            dispatch({ type: 'FETCH_ERROR', error:errorMsg  });
-            return {error:true,errorMessage:errorMsg};
+            dispatch({ type: 'FETCH_ERROR', error:resp.data.errorMessage  });
+            return {error:true,errorMessage:resp.data.errorMessage};
         }
     }catch(ex){
-        const errorObject=ex.toJSON();
+        const errorObject=ex;
 		const errorMessage=errorObject.message;		
 		await dispatch({ type: 'FETCH_ERROR', error:errorMessage  });
-		return {error:true,error:errorMessage}
+		return {error:true,errorMessage:errorMessage}
     }
 }
 const prepareFormatList=(list)=>{
     const formatedData=[];
-        const groupByTrIds=groupBy(list,'transmittalid');
+        const groupByTrIds= groupBy(list, 'transmittalid' ) ;
         Object.keys(groupByTrIds).map(key=>{
             if(groupByTrIds[key].length>0){
                 const obj={
@@ -38,7 +38,7 @@ const prepareFormatList=(list)=>{
                         return {
                             'tdRecId':i+1,
                             "transmittalDetailid": rec.transmittalDetailid,
-                            "docNumbe": rec.docNumbe,
+                            "docNumber": rec.docNumber,
                             "description": rec.description,
                             "rev": rec.rev,
                             "status": rec.status,
@@ -55,13 +55,11 @@ const prepareFormatList=(list)=>{
 export const getTransmittalRec=async(dispatch,id)=>{
     try {
         dispatch({ type: 'REQUEST_PROCESS' });
-       await dispatch({ type: 'CLEAR_REC' });
-        const record=prepareFormatList(data).find(rec=>{
-            return rec.transmittalid==id
-        })
-        const resp={data:{...(record||{})}}
-        if(resp.data){
-            await dispatch({ type: 'FETCH_REC', payload: resp.data });
+       await dispatch({ type: 'CLEAR_REC' });       
+        const resp=await getById(id);
+        if( resp.status==200){
+            const formatedData=prepareFormatList(resp.data.data[0]||[])||[];
+            await dispatch({ type: 'FETCH_REC', payload: (formatedData[0]||{})});
             return {error:false};
         }else{
             const errorMsg='Something went wrong';
@@ -69,10 +67,10 @@ export const getTransmittalRec=async(dispatch,id)=>{
             return {error:true,errorMessage:errorMsg};
         }
     }catch(ex){
-        const errorObject=ex.toJSON();
+        const errorObject=ex;
 		const errorMessage=errorObject.message;		
 		await dispatch({ type: 'FETCH_ERROR', error:errorMessage  });
-		return {error:true,error:errorMessage}
+		return {error:true,errorMessage:errorMessage}
 
     }
 }
@@ -80,9 +78,42 @@ export const clearRecord=(dispatch)=>{
     dispatch({ type: 'CLEAR_REC'  });
 }
 
+export const saveAndUpdateTransmittal=async(data)=>{
+    try{
+        const resp=await saveAndUpdate(data);
+        if(resp.status===201){
+            return{status:resp.status, message:resp.data.message};
+        } else if(resp.status===200){
+            return{status:resp.status, message:resp.data.message};
+        }else{
+            return{status:resp.status, errorMessage:resp.data.message, error:resp.data.error};
+        }
+    }catch(ex){
+        const errorObject=ex;
+        return{status:null, errorMessage:errorObject.message, error:errorObject.error}
+    }
+
+}
+export const deleteTransmittal=async(id)=>{
+    try{
+        const resp=await deleteRec(id);
+        if(resp.status===200){
+            return{status:resp.status, message:resp.data.message};
+
+        }else{
+            return{status:resp.status, errorMessage:resp.data.message, error:resp.data.error}
+        }
+
+    }catch(ex){
+        const errorObject=ex;
+        return{status:null, errorMessage:errorObject.message, error:errorObject.error}
+
+    }
+}
+
 const  groupBy=(list, props)=> {
-    return list.reduce((a, b) => {
-       (a[b[props]] = a[b[props]] || []).push(b);
-       return a;
-    }, {});
+    return list.reduce((a=[], b=[]) => {
+        (a[b[props]] = a[b[props]] || []).push(b);
+        return a;
+     }, {});
   }

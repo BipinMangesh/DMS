@@ -7,7 +7,7 @@ import * as yup from "yup";
 import RTable from '../../table';
 
 const detailSchema = yup.object({
-    docNumbe: yup.string().required(),
+    docNumber: yup.string().required(),
     description:yup.string().required(),
     rev:yup.string().required(),
     status:yup.string().required(),
@@ -24,7 +24,7 @@ const TransmittalDetails=(props)=>{
 
     const onEditClick=(row)=>{
         const {original}=row;
-        setValue2('docNumbe',original.docNumbe, { shouldValidate: true, shouldDirty: true });
+        setValue2('docNumber',original.docNumber, { shouldValidate: true, shouldDirty: true });
         setValue2('description',original.description, { shouldValidate: true, shouldDirty: true });
         setValue2('rev',original.rev, { shouldValidate: true, shouldDirty: true });
         setValue2('status',original.status, { shouldValidate: true, shouldDirty: true });
@@ -43,7 +43,7 @@ const TransmittalDetails=(props)=>{
     }
     const clearDetails=()=>{
         reset2({ 
-            docNumbe: '',
+            docNumber: '',
             description:'',
             rev:'',
             status:'',
@@ -53,7 +53,7 @@ const TransmittalDetails=(props)=>{
     }
     const columns = [{
                 Header: 'Doc No.',
-                accessor: 'docNumbe',
+                accessor: 'docNumber',
               },
               {
                 Header: 'Description',
@@ -92,8 +92,8 @@ const TransmittalDetails=(props)=>{
          <form key="frmDetails" className=" g-2" onSubmit={handleSubmit2(onSubmitDetails)}>
             <div className='row mb-2'>
                 <div className="col-md-2">
-                    <input className="form-control" size={'sm'} id="docNumbe" type="text" placeholder='Doc No *' {...register2("docNumbe")} />
-                    {errors2.docNumbe && <span className='text-danger fs--2'>{errors2.docNumbe.message}</span>}
+                    <input className="form-control" size={'sm'} id="docNumber" type="text" placeholder='Doc No *' {...register2("docNumber")} />
+                    {errors2.docNumber && <span className='text-danger fs--2'>{errors2.docNumber.message}</span>}
                 </div>
                 <div className="col-md-4">
                     <input className="form-control" size={'sm'} id="description" type="text" placeholder='Description *' {...register2("description")} />

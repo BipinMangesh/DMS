@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PageHeader from '../../../components/common/PageHeader';
 import RTable from '../../table';
-import {getAllTransmittals, clearRecord} from '../../../actions/transmittalAction'
+import {getAllTransmittals, clearRecord, deleteTransmittal} from '../../../actions/transmittalAction'
 import {useTransmittalState, useTransmittalDispatch} from '../../../context/transmittalContext';
 import Flex from '../../../components/common/Flex';
 import {data} from './testData'
@@ -12,8 +13,15 @@ const TransmittalList=(props)=>{
   const {loading,data}=useTransmittalState();
   const dispatch=useTransmittalDispatch();
   useEffect(()=>{
-    getAllTransmittals(dispatch);
+    bindData();
   },[]);
+
+  const bindData=async()=>{
+    const res=await getAllTransmittals(dispatch);
+    if(res.error){
+      toast.error(res.errorMessage)
+    }
+  }
 
   const onEditClick=(row)=>{
     clearRecord(dispatch)
@@ -23,8 +31,16 @@ const TransmittalList=(props)=>{
     clearRecord(dispatch)
     props.history.push(`/transmittals/record/${0}`);
   }
-  const columns = React.useMemo(
-    () => [
+  const onDeleteClick=async(row)=>{
+    const resp=await deleteTransmittal(row.original.transmittalid);
+    if(resp.status==200){
+      toast.success(resp.message);
+      bindData();      
+    }else{
+      toast.error(resp.errorMessage);
+    }
+  }
+  const columns = [
       
           {
             Header: 'Won No',
@@ -57,14 +73,13 @@ const TransmittalList=(props)=>{
             Cell:({row})=>{              
               return (<>
               <ButtonGroup>
-                <Button outline size='sm' onClick={()=>onEditClick(row)}><FontAwesomeIcon icon='pencil-alt' /> </Button>  
-                <Button outline size='sm'><FontAwesomeIcon icon='print' /></Button>           
+                <Button outline size='sm' onClick={()=>onEditClick(row)}><FontAwesomeIcon icon='pencil-alt' /> </Button>
+                <Button outline size='sm' onClick={()=>onDeleteClick(row)}><FontAwesomeIcon icon='trash' /></Button> 
+                <Button outline size='sm'><FontAwesomeIcon icon='print' /></Button>         
                 </ButtonGroup></>)
             }
           }
-    ],
-    []
-  )
+    ];
 return(<>
  <PageHeader
       title="Transmittals"

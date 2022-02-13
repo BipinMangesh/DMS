@@ -2,25 +2,25 @@ import service from './../server/request';
 export const getAll=()=>{
     return service({
         method:'get',
-        url:'/',
+        url:'/Transmittals',
     })
 }
 export const getById=(id)=>{
     return service({
         method:'get',
-        url:'/',
+        url:`/Transmittal/${id}`,
     })
 }
 export const saveAndUpdate=(reqObj)=>{
     return service({
         method:'post',
-        url:'/',
+        url:'/Transmittal',
         data:reqObj
     })
 }
 export const deleteRec=(recId)=>{
     return service({
         method:'delete',
-        url:'/',
+        url:`/Transmittal/${recId}`,
     })
 }
