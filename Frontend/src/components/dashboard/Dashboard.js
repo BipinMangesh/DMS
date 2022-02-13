@@ -18,12 +18,7 @@ const Dashboard = () => {
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
-    toast(
-      <Fragment>
-        Welcome to <strong>Falcon React</strong>!<br />
-        ReactJS Dashboard and WebApp Template
-      </Fragment>
-    );
+    
   }, []);
 
   return (

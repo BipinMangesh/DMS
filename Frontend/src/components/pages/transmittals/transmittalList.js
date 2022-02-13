@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader } from 'reactstrap';
+import { Button, ButtonGroup, Card, CardBody, CardFooter, Modal, ModalFooter,
+  ModalHeader, ModalBody } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PageHeader from '../../../components/common/PageHeader';
 import RTable from '../../table';
@@ -8,13 +9,19 @@ import {getAllTransmittals, clearRecord, deleteTransmittal} from '../../../actio
 import {useTransmittalState, useTransmittalDispatch} from '../../../context/transmittalContext';
 import Flex from '../../../components/common/Flex';
 import {data} from './testData'
+import TransmittalPrint from './transmittalPrint';
 
 const TransmittalList=(props)=>{
   const {loading,data}=useTransmittalState();
+  const [modal, setModal] = useState(false);
+  const [pdfObj,setPdfObject]=useState({});
   const dispatch=useTransmittalDispatch();
   useEffect(()=>{
     bindData();
   },[]);
+  const toggle = () => {setModal(!modal);
+    setPdfObject({});
+  };
 
   const bindData=async()=>{
     const res=await getAllTransmittals(dispatch);
@@ -39,6 +46,10 @@ const TransmittalList=(props)=>{
     }else{
       toast.error(resp.errorMessage);
     }
+  }
+  const pdfDownload=async(row)=>{
+    setPdfObject(row.original);
+    setModal(true);
   }
   const columns = [
       
@@ -75,7 +86,7 @@ const TransmittalList=(props)=>{
               <ButtonGroup>
                 <Button outline size='sm' onClick={()=>onEditClick(row)}><FontAwesomeIcon icon='pencil-alt' /> </Button>
                 <Button outline size='sm' onClick={()=>onDeleteClick(row)}><FontAwesomeIcon icon='trash' /></Button> 
-                <Button outline size='sm'><FontAwesomeIcon icon='print' /></Button>         
+                <Button outline size='sm' onClick={()=>pdfDownload(row)}><FontAwesomeIcon icon='print' /></Button>         
                 </ButtonGroup></>)
             }
           }
@@ -103,10 +114,15 @@ return(<>
             </div>
           </div>
       </CardBody>
-      <CardFooter className="d-flex align-items-center bg-light">
-        
-      </CardFooter>
     </Card>
+    <Modal centered
+    scrollable isOpen={modal} style={{maxWidth:'80vw'}} >
+      <ModalHeader toggle={toggle}>        
+      </ModalHeader>
+      <ModalBody>
+        <TransmittalPrint data={pdfObj} />        
+      </ModalBody>
+    </Modal>
 
 
 </>
