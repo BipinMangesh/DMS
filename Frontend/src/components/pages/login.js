@@ -11,8 +11,8 @@ import {loginUser} from '../../actions/authAction';
 import {useAuthDispatch, useAuthState} from '../../context';
 
 const Login=(props)=>{
-    const [userName, setUserName]=useState('');
-    const [password, setPassword]=useState('');
+    const [userName, setUserName]=useState('test@dmsmail.com');
+    const [password, setPassword]=useState('dms123');
     const [isCookie, setIsCookie]=useState(false);
     const dispatch = useAuthDispatch();
     const {loading}=useAuthState();
@@ -88,7 +88,7 @@ const Login=(props)=>{
     return (
         <Section className="py-0">
           <Row className="flex-center min-vh-75 py-6"> 
-            <Col sm={12} md={12} lg={12} xl={12}><Logo /></Col>            
+            <Col sm={12} md={12} lg={12} xl={12}><Logo width={100} /></Col>            
             <Col sm={10} md={8} lg={6} xl={5} className="col-xxl-4">               
               <Card>
                 <CardBody className="fs--1 font-weight-normal p-5">

@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader } from 'rea
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PageHeader from '../../../components/common/PageHeader';
 import RTable from '../../table';
-import {getAllTransmittals} from '../../../actions/transmittalAction'
+import {getAllTransmittals, clearRecord} from '../../../actions/transmittalAction'
 import {useTransmittalState, useTransmittalDispatch} from '../../../context/transmittalContext';
 import Flex from '../../../components/common/Flex';
 import {data} from './testData'
@@ -16,10 +16,11 @@ const TransmittalList=(props)=>{
   },[]);
 
   const onEditClick=(row)=>{
-    console.log(row)
+    clearRecord(dispatch)
     props.history.push(`/transmittals/record/${row.original.transmittalid}`);
   }
   const onNewClick=()=>{
+    clearRecord(dispatch)
     props.history.push(`/transmittals/record/${0}`);
   }
   const columns = React.useMemo(

@@ -130,11 +130,11 @@ const RTable = ({ columns, data, loading = true }) => {
 }
       <Table {...getTableProps()} hover bordered responsive>
         <thead>
-          {headerGroups.map((headerGroup) => (
+          {headerGroups.map((headerGroup,j) => (
             <>
-              <tr className="theader" {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+              <tr key={j} className="theader" {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column,k) => (
+                  <th key={k} {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {column.render("Header")}
                     <span className="float-right">
                       {!column.notShowSortingDisplay ? (
@@ -157,7 +157,7 @@ const RTable = ({ columns, data, loading = true }) => {
               {switchSearch ? (
                 <tr style={{ backgroundColor: "aliceBlue" }}>
                   {headerGroup.headers.map((column, index) => (
-                    <th className="tfilter">
+                    <th key={index} className="tfilter">
                       {column.canFilter ? (
                         <FormGroup className="mb-1">
                           <Label className="divFilter mb-0">
@@ -198,7 +198,7 @@ const RTable = ({ columns, data, loading = true }) => {
                 {page.map((row, i) => {
                   prepareRow(row);
                   return (
-                    <tr {...row.getRowProps()}>
+                    <tr key={i} {...row.getRowProps()}>
                       {row.cells.map((cell) => {
                         return (
                           <td

@@ -1,66 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import {useParams } from "react-router-dom";
 import { Button, ButtonGroup, Card, CardBody, CardFooter } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PageHeader from '../../../components/common/PageHeader';
-import RTable from '../../table';
-import {getAllTransmittals} from '../../../actions/transmittalAction'
+import {getTransmittalRec, clearRecord} from './../../../actions/transmittalAction';
+import TransmittalForm from './transmittalForm';
 import {useTransmittalState, useTransmittalDispatch} from '../../../context/transmittalContext';
-import Flex from '../../../components/common/Flex';
-import {data} from './testData'
 
 const TransmittalRec=(props)=>{
-  const {loading,data}=useTransmittalState();
+  const {id}= useParams() ;
+  
+  const {loading,rec}=useTransmittalState();
   const dispatch=useTransmittalDispatch();
   useEffect(()=>{
-   // getAllTransmittals(dispatch);
+    if(id==0){
+      clearRecord(dispatch)
+    }else{
+      getTransmittalRec(dispatch,id);
+    }
   },[]);
-
-  const onEditClick=(row)=>{
-    console.log(row)    
-  }
   
-  const columns = React.useMemo(
-    () => [
-      
-          {
-            Header: 'Won No',
-            accessor: 'wonNo',
-          },
-          {
-            Header: 'Won Title',
-            accessor: 'wonTitle',
-          },
-          {
-            Header: 'Transmittal No',
-            accessor: 'transmittalNo',
-          },
-          {
-            Header: 'Date',
-            accessor: 'date',
-          },
-          
-          {
-            Header: 'From',
-            accessor: 'from',
-          },
-          {
-            Header: 'To',
-            accessor: 'to',
-          },
-          {
-            Header: 'Action',
-            id: 'action',
-            Cell:({row})=>{              
-              return (<>
-              <ButtonGroup>
-                <Button outline size='sm' onClick={()=>onEditClick(row)}><FontAwesomeIcon icon='pencil-alt' /> </Button>  
-                <Button outline size='sm'><FontAwesomeIcon icon='print' /></Button>           
-                </ButtonGroup></>)
-            }
-          }
-    ],
-    []
-  )
 return(<>
  <PageHeader
       title="Transmittals Rec"
@@ -68,17 +27,15 @@ return(<>
     />
      <Card>
       <CardBody>
-        
+        <TransmittalForm defaultValues={{...(rec||{})}} onCancelClick={async()=>{
+          await clearRecord(dispatch);
+          props.history.push('/transmittals');
+        }} onSubmitClick={async()=>{
+
+        }} />
       </CardBody>
-      <CardFooter className="d-flex align-items-center bg-light">
-        
-      </CardFooter>
     </Card>
-
-
 </>
-    
-
 )
 }
 

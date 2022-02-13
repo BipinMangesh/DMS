@@ -24,6 +24,11 @@ export const TransmittalReducer = (initialTransmittalState, action) => {
 				...initialTransmittalState,
 				rec: action.payload,
 			};
+		case 'CLEAR_REC':
+			return {
+				...initialTransmittalState,
+				rec: action.payload,
+			};
 
 		case 'FETCH_ERROR':
 			return {
