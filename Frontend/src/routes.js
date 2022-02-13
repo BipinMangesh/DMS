@@ -12,7 +12,7 @@ export const buildMenu=()=>{
     name: 'Transmittals',
     to: '/transmittals',
     exact: true,
-    icon: 'chart-pie'
+    icon: 'copy'
 
   }];
 }
