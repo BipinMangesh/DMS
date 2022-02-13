@@ -67,12 +67,12 @@ const TransmittalForm=({ onCancelClick, onSubmitClick, defaultValues})=>{
                 {errors.date && <span className='text-danger fs--2'>{errors.date.message}</span>}
                 
             </div>
-            <div className="col-md-5">
+            <div className="col-md-6">
                 <label className="form-label" htmlFor="from">From *</label>
                 <input className="form-control" id="from" type="text" {...register("from")} />
                 {errors.from && <span className='text-danger fs--2'>{errors.from.message}</span>}
             </div>
-            <div className="col-md-5">
+            <div className="col-md-4">
                 <label className="form-label" htmlFor="to">To *</label>
                 <input className="form-control" id="to" type="text" {...register("to")} />
                 {errors.to && <span className='text-danger fs--2'>{errors.to.message}</span>}
