@@ -189,7 +189,7 @@ const RTable = ({ columns, data, loading = true }) => {
               <tbody>
                 <tr>
                   <td colSpan="10000" className="text-left">
-                    * Tidak ada data
+                    No rows found
                   </td>
                 </tr>
               </tbody>
