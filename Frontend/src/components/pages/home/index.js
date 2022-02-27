@@ -11,7 +11,8 @@ import { getPageName } from '../../../helpers/utils';
 import { TransmittalProvider } from '../../../context/transmittalContext'
 import Dashboard from './dashboard';
 
-const Transmittals=loadable(()=>import('./../transmittals'))
+const Transmittals=loadable(()=>import('./../transmittals'));
+const ProjectFlowChart=loadable(()=>import('../projectflowchart'))
 const Home = ({ location }) => {
     const { isFluid, isVertical, navbarStyle } = useContext(AppContext);
     const isKanban = getPageName('kanban');
@@ -28,6 +29,7 @@ const Home = ({ location }) => {
               <Switch>
                 <Route path="/dashboard" exact component={Dashboard} />
                 <Route path="/transmittals" render={()=><TransmittalProvider><Transmittals /></TransmittalProvider>} />
+                <Route path="/projectflowchart" exact component={ProjectFlowChart} />
                 <Route path="/" component={Dashboard} />
                 
                {/*  <DashboardRoutes /> */}
