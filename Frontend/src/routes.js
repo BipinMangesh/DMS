@@ -14,6 +14,12 @@ export const buildMenu=()=>{
     exact: true,
     icon: 'copy'
 
+  },{
+    name: 'Project Flow Chart',
+    to: '/projectflowchart',
+    exact: true,
+    icon: 'copy'
+
   }];
 }
 
