@@ -13,7 +13,7 @@ const ProjectFlowChart=()=>{
     
     const applyCardStyle=(data)=>{
         let classNames='';
-        if(data.targetDate!==''){
+        if(data.completionDate!==''){
             return classNames="bg-success"
         }
         else if(data.started!=="" && data.completionDate==='' && moment(data.targetDate,'MM/DD/YYYY')>=moment()){

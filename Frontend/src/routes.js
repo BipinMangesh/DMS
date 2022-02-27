@@ -7,7 +7,7 @@ export const buildMenu=()=>{
     name: 'Home',
     to: '/dashboard',
     exact: true,
-    icon: 'chart-pie'
+    icon: 'home'
   },{
     name: 'Transmittals',
     to: '/transmittals',
@@ -18,7 +18,7 @@ export const buildMenu=()=>{
     name: 'Project Flow Chart',
     to: '/projectflowchart',
     exact: true,
-    icon: 'copy'
+    icon: 'chart-pie'
 
   }];
 }

@@ -10,7 +10,7 @@ export const projects=[
         "data":{          
         "activity": "PUSB receive ETSR auto notification email from BSP",        
         "activityOwner": "Mohamad Safwan Bin",
-        "started": "",
+        "started": "02/20/2021",
         "completionDate": "02/20/2021",
         "targetDate": "02/20/2021"
         }
@@ -23,9 +23,9 @@ export const projects=[
         "activity": "PUSB ETSR Focal point forward the details to Project Manager and Planner.",
         
         "activityOwner": "Muhammad Azizul Bin",
-        "started": "",
-        "completionDate": "03/20/2021",
-        "targetDate": ""
+        "started": "03/20/2021",
+        "completionDate": "",
+        "targetDate": "06/20/2022"
         }
       },
       {
@@ -37,7 +37,7 @@ export const projects=[
         
         "activityOwner": "Muhd Zihnie Bin",
         "started": "",
-        "completionDate": "04/20/2021",
+        "completionDate": "",
         "targetDate": ""
         }
       },
@@ -49,9 +49,9 @@ export const projects=[
         "activity": "Issue approved Project Initiation Note (PIN)",
         
         "activityOwner": "Siti Majidah Bte",
-        "started": "",
-        "completionDate": "05/20/2021",
-        "targetDate": ""
+        "started": "01/10/2022",
+        "completionDate": "",
+        "targetDate": "01/20/2022"
         }
       },
       { id: 'e1-1', source: '1', target: '2'},
@@ -83,9 +83,9 @@ export const projects=[
         "activity": "PUSB ETSR Focal point forward the details to Project Manager and Planner.",
         
         "activityOwner": "Muhammad Azizul Bin",
-        "started": "",
-        "completionDate": "03/20/2021",
-        "targetDate": ""
+        "started": "03/10/2021",
+        "completionDate": "",
+        "targetDate": "03/20/2021"
         }
       },
       {
@@ -97,7 +97,7 @@ export const projects=[
         
         "activityOwner": "Muhd Zihnie  Bin",
         "started": "",
-        "completionDate": "04/20/2021",
+        "completionDate": "",
         "targetDate": ""
         }
       },
@@ -108,9 +108,9 @@ export const projects=[
         data:{
         "activity": "Issue approved Project Initiation Note (PIN)",        
         "activityOwner": "Siti Majidah Bte",
-        "started": "",
-        "completionDate": "05/20/2021",
-        "targetDate": ""
+        "started": "05/20/2021",
+        "completionDate": "",
+        "targetDate": "05/20/2022"
         }
       },
       { id: 'e1-1', source: '1', target: '2'},
@@ -142,9 +142,9 @@ export const projects=[
         "activity": "PUSB ETSR Focal point forward the details to Project Manager and Planner.",
         
         "activityOwner": "Muhammad Azizul Bin",
-        "started": "",
-        "completionDate": "03/20/2021",
-        "targetDate": ""
+        "started": "02/20/2021",
+        "completionDate": "",
+        "targetDate": "03/20/2022"
         }
       },
       {
@@ -155,9 +155,9 @@ export const projects=[
         "activity": "PUSB Project Manager to assign PE and initiate the project.",
         
         "activityOwner": "Muhd Zihnie  Bin",
-        "started": "",
-        "completionDate": "04/20/2021",
-        "targetDate": ""
+        "started": "02/20/2021",
+        "completionDate": "",
+        "targetDate": "04/20/2021"
         }
       },
       {
@@ -169,7 +169,7 @@ export const projects=[
         
         "activityOwner": "Siti Majidah Bte",
         "started": "",
-        "completionDate": "05/20/2021",
+        "completionDate": "",
         "targetDate": ""
         }
       },
