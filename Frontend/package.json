@@ -1,5 +1,5 @@
 {
-  "name": "DMS",
+  "name": "mms-ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,7 +30,6 @@
     "echarts-for-react": "^2.0.16",
     "element-resize-event": "^3.0.3",
     "emoji-mart": "^3.0.0",
-    "fingerprintjs": "^0.5.3",
     "fuse.js": "^6.4.3",
     "is_js": "^0.9.0",
     "lodash": "^4.17.20",
@@ -74,13 +73,24 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.12"
+    "browser-sync": "^2.26.12",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-rtlcss": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "prettier": "^2.6.2",
+    "sass": "^1.51.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "scss": "gulp"
   },
   "eslintConfig": {
     "extends": [

@@ -84,12 +84,16 @@ export default service;
 
 export const getAccessToken=({userName, password})=> {
   let promise = axios({
-    url:`${BASE_URL}/oauth/token?grant_type=password&username=${userName}&password=${password}`,
+    url:`${BASE_URL}/Auth/Login`,
     method: 'POST',
-    headers: {
-      'Authorization': 'Basic ' + btoa('my-trusted-client:secret'),
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    // headers: {
+    //   'Authorization': 'Basic ' + btoa('my-trusted-client:secret'),
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // },
+    data:{
+        "EmailId":userName ,
+        "Password":password
+      }
   });
   return promise;
 }

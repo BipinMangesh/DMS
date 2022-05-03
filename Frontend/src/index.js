@@ -2,7 +2,6 @@ import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/scss/theme.scss'
 import App from './App';
 import Main from './Main';
 import './helpers/initFA';
@@ -14,7 +13,7 @@ ReactDOM.render(
       <App />
     </Main>    
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('main')
 );
 
 // If you want to start measuring performance in your app, pass a function

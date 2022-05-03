@@ -8,6 +8,7 @@ import TopNavRightSideNavItem from './TopNavRightSideNavItem';
 import NavbarTopDropDownMenus from './NavbarTopDropDownMenus';
 import { topNavbarBreakpoint } from '../../config';
 
+
 const NavbarTop = (props) => {
   const {
     isTopNav,
@@ -29,7 +30,6 @@ const NavbarTop = (props) => {
     return () => window.removeEventListener('scroll', setDropShadow);
   }, []);
 
-
   return (
     <Navbar
       light
@@ -41,7 +41,7 @@ const NavbarTop = (props) => {
       expand={isTopNav && topNavbarBreakpoint}
     >
      
-      <Logo at="navbar-top" width={140} id="topLogo" />
+     <Logo at="navbar-top" width={40} id="topLogo" />
       {isTopNav ? (
         <Collapse navbar isOpen={navbarCollapsed} className="scrollbar">
           <Nav navbar>
@@ -55,8 +55,9 @@ const NavbarTop = (props) => {
           </NavItem>
         </Nav>
       )}
+      
 
-      <TopNavRightSideNavItem onRightSideNavItemClick={(action)=>{props.onRightSideNavItemClick(action)}} {...props}/>
+      <TopNavRightSideNavItem {...props}/>
     </Navbar>
   );
 };

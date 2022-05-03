@@ -35,7 +35,9 @@ import {
   faPaperPlane as farPaperPlane,
   faQuestionCircle as farQuestionCircle,
   faSmileBeam as farSmileBeam,
-  faStar as farStar
+  faStar as farStar,
+  faSun as farSun,
+  faMoon as farMoon
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faAlignLeft,
@@ -166,6 +168,8 @@ import {
   faArrowCircleDown,
   faArrowAltCircleDown,
   faFileExcel,
+  faSun,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   // Solid
@@ -296,6 +300,8 @@ library.add(
   faArrowCircleDown,
   faArrowAltCircleDown,
   faFileExcel,
+  faSun,
+  faMoon,
 
   // Brand
   faFacebook,
@@ -336,5 +342,7 @@ library.add(
   farSmileBeam,
   farCircle,
   farCopy,
-  farComment
+  farComment,
+  farSun,
+  farMoon
 );

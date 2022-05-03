@@ -31,7 +31,7 @@ const ProfileDropdown = (props) => {
             Profile
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} onClick={()=>{props.onProfileItemClcik('LOGOUT')}} >
+          <DropdownItem tag={Link} onClick={()=>{props.onRightSideNavItemClick('LOGOUT')}} >
             Logout
           </DropdownItem>
         </div>

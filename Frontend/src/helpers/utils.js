@@ -146,7 +146,9 @@ export const darkGrays = {
   100: '#0b1727',
   black: '#000'
 };
-
+export const getColor = (name, dom = document.documentElement) => {
+  return getComputedStyle(dom).getPropertyValue(`--falcon-${name}`).trim();
+};
 export const getGrays = isDark => (isDark ? darkGrays : grays);
 
 export const rgbColors = colors.map(color => rgbColor(color));

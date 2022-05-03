@@ -1,40 +1,65 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import {logout} from './../../../actions/authAction'
 import NavbarTop from '../../navbar/NavbarTop';
 import NavbarVertical from '../../navbar/NavbarVertical';
 import Footer from '../../footer/Footer';
 import loadable from '@loadable/component';
+import {useModulesState, useModulesDispatch } from './../../../context/modulesContext';
 import AppContext from '../../../context/Context';
+import { useAuthState } from '../../../context';
 import SidePanelModal from '../../side-panel/SidePanelModal';
-import { getPageName } from '../../../helpers/utils';
-import { TransmittalProvider } from '../../../context/transmittalContext'
 import Dashboard from './dashboard';
+import { getAllModules } from '../../../actions/modulesAction';
 
-const Transmittals=loadable(()=>import('./../transmittals'))
-const Home = ({ location }) => {
-    const { isFluid, isVertical, navbarStyle } = useContext(AppContext);
-    const isKanban = getPageName('kanban');
+const Home = (props) => {
+  const { location }=props;
+  const {authInfo}=useAuthState();
+  const moduleDispatch=useModulesDispatch();
+  const { isFluid, isVertical, navbarStyle } = useContext(AppContext);
+  const moduleStateObj =useModulesState();
+    
 
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, [location.pathname]);
+    }, [location.pathname]);
+    useEffect(()=>{
+      getModules();
+    },[])
+
+    const getModules=async()=>{
+      const {userId}=authInfo;
+      await getAllModules(moduleDispatch,userId);
+    }
+
+    const onRightSideNavItemClick=(action)=>{
+        switch(action){
+          case 'LOGOUT':        
+          logout();
+            window.location.reload('/login');
+          break;
+          default:
+            break;
+        }
+        return false;
+      }
     
       return (
-        <div className={isFluid || isKanban ? 'container-fluid' : 'container'}>
-          {isVertical && <NavbarVertical isKanban={isKanban} navbarStyle={navbarStyle} />}
+        <div className={isFluid ? 'container-fluid' : 'container'}>          
+          {isVertical && <NavbarVertical navbarStyle={navbarStyle} />}
             <div className="content">
-              <NavbarTop />
+              <NavbarTop onRightSideNavItemClick={(action)=>onRightSideNavItemClick(action)} {...props} />
+              {
+                JSON.stringify((moduleStateObj||{}).data||[])
+              }
               <Switch>
                 <Route path="/dashboard" exact component={Dashboard} />
-                <Route path="/transmittals" render={()=><TransmittalProvider><Transmittals /></TransmittalProvider>} />
                 <Route path="/" component={Dashboard} />
-                
-               {/*  <DashboardRoutes /> */}
               </Switch>
-              {!isKanban && <Footer />}
+               <Footer />
             </div>
-            {/* <SidePanelModal path={location.pathname} /> */}
+            {/* <SidePanelModal path={location.pathname} /> */}            
         </div>
       );
 

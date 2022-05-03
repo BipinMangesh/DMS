@@ -4,10 +4,10 @@ import {setItemToSessionStore} from '../helpers/utils'
 export const loginUser= async(dispatch,loginPayload)=>{    
 	try {
 		dispatch({ type: 'REQUEST_LOGIN' });
-		//const resp=await getAccessToken({userName:loginPayload.userName, password:loginPayload.password});
-		const resp={data:{authInfo:{access_token:'sfsdsdffs-sdfsdf-sdsdf-'}}}
+		const resp=await getAccessToken({userName:loginPayload.userName, password:loginPayload.password});
+		//const resp={data:{authInfo:{access_token:'sfsdsdffs-sdfsdf-sdsdf-'}}}
 		if(resp.data){
-				const _payload={authInfo:resp.data.authInfo}
+				const _payload={authInfo:resp.data}
 				await dispatch({ type: 'LOGIN_SUCCESS', payload: _payload });
 				setItemToSessionStore('currentUser', JSON.stringify(_payload));
 				return _payload;
