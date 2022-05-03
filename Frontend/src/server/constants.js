@@ -1,2 +1,2 @@
 
-export const BASE_URL = 'http://20.121.220.151/mmsapi/api'
+export const BASE_URL = 'http://20.120.83.168/mmsapi/api'
