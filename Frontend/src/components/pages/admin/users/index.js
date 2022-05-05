@@ -2,40 +2,52 @@ import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup, Card, CardBody } from "reactstrap";
 import { toast } from 'react-toastify';
 import RTable from './../../../table';
-import { getAllRoles } from "../../../../actions/rolesAction";
+import { getAllUsers } from "../../../../actions/userAction";
 import FalconCardHeader from './../../../common/FalconCardHeader'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const RolelistComponent=()=>{
+const UserlistComponent=()=>{
     const [loading,setLoading]=useState(false);
-    const [roles,setRoles]=useState([]);
+    const [users,setUsers]=useState([]);
     const [filterData,setFilterData]=useState([])
     useEffect(()=>{
         bindData();
       },[]);
     const bindData=async()=>{
         await setLoading(true);
-        const res=await getAllRoles();
+        const res=await getAllUsers();
         await setLoading(false);
         if(res.error){
           toast.error(res.errorMessage);
-          await setRoles([]);
+          await setUsers([]);
         }else{
-            await setRoles(res.data);
+            await setUsers(res.data);
         }
     }
 return (<>
     <Card className="mb-3">
-        <FalconCardHeader title="Roles" />
+        <FalconCardHeader title="Users" />
         <CardBody className="fs--1">
             <RTable loading={loading} columns={[
                 {
-                    Header:'Role',
-                    accessor:'RoleName'
+                    Header:'First Name',
+                    accessor:'FirstName'
+                },
+                {
+                    Header:'Middle Name',
+                    accessor:'MiddleName'
+                },
+                {
+                    Header:'Last Name',
+                    accessor:'LastName'
                 },
                 {
                     Header:'Status',
                     accessor:'IsActive'
+                },
+                {
+                    Header:'Email',
+                    accessor:'EmailId'
                 },
                 {
                     Header:'Action',
@@ -48,11 +60,11 @@ return (<>
                             </ButtonGroup></>);
                         }
                 }
-            ]} data={roles} minRows="10" defaultPageSize={10} />
+            ]} data={users} minRows="10" defaultPageSize={10} />
             
         </CardBody>
     </Card>
     
 </>)
 }
-export default RolelistComponent
+export default UserlistComponent

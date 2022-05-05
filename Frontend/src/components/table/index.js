@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useTable,
+  useRowSelect, useMountedLayoutEffect,
   useSortBy,
   usePagination,
   useFilters,
@@ -8,7 +9,8 @@ import {
   // useAsyncDebounce,
 } from "react-table";
 
-import {
+import { Row, Col,
+  Button, Spinner,
   Table,
   Label,
   Input,
@@ -21,10 +23,6 @@ import {
 import{matchSorter} from "match-sorter";
 import classNames from "classnames";
 import "./table.css";
-import sortasc from "../../assets/img/table/sort_asc.png";
-import sortdesc from "../../assets/img/table/sort_desc.png";
-import sortboth from "../../assets/img/table/sort_both.png";
-import loaderimage from "../../assets/img/table/loader-table.gif";
 
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter }
@@ -50,9 +48,8 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 
 fuzzyTextFilterFn.autoRemove = (val) => !val;
 
-const RTable = ({ columns, data, loading = true }) => {
-  const showFilterSwitch=false;
-  const [switchSearch, setSwitchSearch] = useState(true);
+const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSearch=false, onSelectedRowsChange, selectedRows }) => {
+  const [switchSearch, setSwitchSearch] = useState(showSearch);
   const toggleSwitchSearch = () => {
     setAllFilters([]);
     setSwitchSearch(!switchSearch);
@@ -86,6 +83,7 @@ const RTable = ({ columns, data, loading = true }) => {
     getTableBodyProps,
     headerGroups,
     page,
+    rows,
     prepareRow,
     canPreviousPage,
     canNextPage,
@@ -96,20 +94,25 @@ const RTable = ({ columns, data, loading = true }) => {
     previousPage,
     setPageSize,
     setAllFilters,
-    state: { pageIndex, pageSize }
+    selectedFlatRows,
+    state: { pageIndex, pageSize, selectedRowIds }
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 },
+      initialState: { pageIndex: 0, pageSize: 10, selectedFlatRows: selectedRows||[], selectedRowIds:selectedRows||[] },
       defaultColumn,
       filterTypes
     },
     useFilters,
     useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
+    useRowSelect
   );
+  useMountedLayoutEffect(() => {
+    onSelectedRowsChange && onSelectedRowsChange(selectedRowIds);
+  }, [onSelectedRowsChange, selectedRowIds]); 
 
   return (
     <>
@@ -128,7 +131,7 @@ const RTable = ({ columns, data, loading = true }) => {
         </span>
       </div>
 }
-      <Table {...getTableProps()} hover bordered responsive>
+      <Table className="rtable" {...getTableProps()} hover bordered striped responsive>
         <thead>
           {headerGroups.map((headerGroup,j) => (
             <>
@@ -140,12 +143,12 @@ const RTable = ({ columns, data, loading = true }) => {
                       {!column.notShowSortingDisplay ? (
                         column.isSorted ? (
                           column.isSortedDesc ? (
-                            <img src={sortdesc} alt="descending" />
+                            <i className="faCaretDown"></i>                            
                           ) : (
-                            <img src={sortasc} alt="ascending" />
+                            <i className="faCaretUp"></i>
                           )
                         ) : (
-                          <img src={sortboth} alt="sorting" />
+                          <i></i>
                         )
                       ) : (
                         ""
@@ -157,7 +160,7 @@ const RTable = ({ columns, data, loading = true }) => {
               {switchSearch ? (
                 <tr style={{ backgroundColor: "aliceBlue" }}>
                   {headerGroup.headers.map((column, index) => (
-                    <th key={index} className="tfilter">
+                    <td key={index} className="tfilter">
                       {column.canFilter ? (
                         <FormGroup className="mb-1">
                           <Label className="divFilter mb-0">
@@ -166,12 +169,11 @@ const RTable = ({ columns, data, loading = true }) => {
                           {column.render("Filter")}
                         </FormGroup>
                       ) : null}
-                    </th>
+                    </td>
                   ))}
                 </tr>
-              ) : (
-                ""
-              )}
+              ) :null
+              }
             </>
           ))}
         </thead>
@@ -179,7 +181,16 @@ const RTable = ({ columns, data, loading = true }) => {
           <tbody>
             <tr>
               <td colSpan="10000" className="text-center">
-                <img src={loaderimage} alt="Loading..." />
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  Loading...
+                </Button>
               </td>
             </tr>
           </tbody>
@@ -221,28 +232,30 @@ const RTable = ({ columns, data, loading = true }) => {
 
       {page.length > 0 && (
         <div className={classNames("div-pagination", { "d-none": loading })}>
-          <div className="div-pagination-2">
-            <div className="div-pagination-2-2">
-              Showing{" "}
-              <select
-                className="selectan"
-                value={pageSize}
-                onChange={(e) => {
-                  setPageSize(Number(e.target.value));
-                }}
-              >
-                {[10, 20, 30, 50, 100].map((pageSize) => (
-                  <option key={pageSize} value={pageSize}>
-                    {pageSize}
-                  </option>
-                ))}
-              </select>{" "}
-              record per-page
-            </div>
-          </div>
+          <div className="d-flex justify-content-between">
+            <span>{`Tot. Rows: ${rows.length} `}</span>
+                <select className="selectan"
+                  value={pageSize}
+                  onChange={(e) => {
+                    setPageSize(Number(e.target.value));
+                  }}
+                >
+                  {[10, 20, 30, 50, 100].map((pageSize) => (
+                    <option key={pageSize} value={pageSize}>
+                      {pageSize}
+                    </option>
+                  ))}
+                </select>
 
-          <div className="div-pagination-1">
-            Page : {pageIndex + 1} from {pageOptions.length}{" "}
+                <div style={{flexWrap: 'nowrap'}}>
+                <span>Page</span>
+                <input type="number" className="inputan" defaultValue={pageIndex + 1} onChange={(e) => {
+                    const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                    gotoPage(page);
+                  }} />
+                <span >{`of ${pageOptions.length}`}</span>
+              </div>
+          
             <Pagination className="pagina">
               <PaginationItem disabled={!canPreviousPage}>
                 <PaginationLink onClick={() => gotoPage(0)}>
@@ -265,18 +278,6 @@ const RTable = ({ columns, data, loading = true }) => {
                 </PaginationLink>
               </PaginationItem>
             </Pagination>
-            <div className="div-pagination-2-1">
-              Next to Page {" : "}
-              <input
-                className="inputan"
-                type="number"
-                defaultValue={pageIndex + 1}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  gotoPage(page);
-                }}
-              />
-            </div>{" "}
           </div>
         </div>
       )}
