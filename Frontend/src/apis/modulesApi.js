@@ -2,6 +2,6 @@ import service from './../server/request';
 export const getModuleListApi=({uId})=>{
     return service({
         method:'get',
-        url:`/User/MenuList?userid=${uId}`,
+        url:`/Module/MenuList?userid=${uId}`,
     })
 }

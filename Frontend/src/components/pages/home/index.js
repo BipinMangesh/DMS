@@ -13,6 +13,8 @@ import SidePanelModal from '../../side-panel/SidePanelModal';
 import Dashboard from './dashboard';
 import { getAllModules } from '../../../actions/modulesAction';
 
+const Admin = loadable(() => import('./../admin'));
+
 const Home = (props) => {
   const { location }=props;
   const {authInfo}=useAuthState();
@@ -49,13 +51,14 @@ const Home = (props) => {
         <div className={isFluid ? 'container-fluid' : 'container'}>          
           {isVertical && <NavbarVertical navbarStyle={navbarStyle} />}
             <div className="content">
-              <NavbarTop onRightSideNavItemClick={(action)=>onRightSideNavItemClick(action)} {...props} />
-              {
-                JSON.stringify((moduleStateObj||{}).data||[])
-              }
+              <NavbarTop navbarItems={(moduleStateObj||{}).data||[]}
+              onRightSideNavItemClick={(action)=>onRightSideNavItemClick(action)} {...props} />
+  
               <Switch>
                 <Route path="/dashboard" exact component={Dashboard} />
+                <Route path="/admin" component={Admin} />
                 <Route path="/" component={Dashboard} />
+
               </Switch>
                <Footer />
             </div>

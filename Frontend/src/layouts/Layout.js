@@ -30,12 +30,6 @@ const routes = [
 		isPrivate: false,
 	},
 	 {
-		path: '/',
-		component: Home,
-		isPrivate: true,
-	},
-	  
-	 {
 		path: '/*',
 		component: Home,
 		isPrivate: true,

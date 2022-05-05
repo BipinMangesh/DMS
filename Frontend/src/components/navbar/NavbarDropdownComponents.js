@@ -45,7 +45,7 @@ const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapse
                   return (
                     <Fragment key={index}>
                       {index !== 0 && (
-                        <div className="nav-link  py-1 text-900 font-weight-bold">{items[index].name}</div>
+                        <div className="nav-link  py-1 text-900 font-weight-bold">{items[index].ModuleName}</div>
                       )}
                       <Row className={index + 1 === items.length ? 'mb-0' : 'mb-3'} noGutters>
                         {NavItemGroup.map((navItems, i) => {
@@ -56,11 +56,11 @@ const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapse
                                   return (
                                     <DropdownItem
                                       tag={Link}
-                                      to={navItem.to}
+                                      to={navItem.Url}
                                       key={`${index}-${i}-${j}`}
                                       onClick={handleSetNavbarCollapsed}
                                     >
-                                      {navItem.name}
+                                      {navItem.ModuleName}
                                       {navItem.badge && (
                                         <Badge color={navItem.badge.color || 'soft-success'} pill className="ml-2">
                                           {navItem.badge.text}

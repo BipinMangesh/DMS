@@ -45,7 +45,7 @@ const NavbarTop = (props) => {
       {isTopNav ? (
         <Collapse navbar isOpen={navbarCollapsed} className="scrollbar">
           <Nav navbar>
-            <NavbarTopDropDownMenus setNavbarCollapsed={setNavbarCollapsed} />
+            <NavbarTopDropDownMenus {...props} setNavbarCollapsed={setNavbarCollapsed} />
           </Nav>
         </Collapse>
       ) : (

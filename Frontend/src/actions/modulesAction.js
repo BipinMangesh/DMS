@@ -4,7 +4,7 @@ export const getAllModules=async(dispatch,uid)=>{
         dispatch({ type: 'REQUEST_PROCESS' });   
         const resp=await getModuleListApi({uId:uid});
         if(resp.status==200){
-            await dispatch({ type: 'FETCH_ALL_DATA', payload:formatModuleItems( [...resp.data||[]]) });
+            await dispatch({ type: 'FETCH_ALL_DATA', payload:formatModuleItems( [...resp.data.MenuListData||[]]) });
             return {error:false};
         }else{
             dispatch({ type: 'FETCH_ERROR', error:resp.data.errorMessage  });
@@ -24,4 +24,4 @@ const formatModuleItems = (arr, parent=0) => {
             acc.push({...item, children: formatModuleItems(arr, item.ModuleID)});
             return acc;
         }, []);
-  };
+};

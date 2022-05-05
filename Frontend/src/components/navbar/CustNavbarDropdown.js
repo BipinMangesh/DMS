@@ -7,7 +7,7 @@ import AuthCornerImage from '../../assets/img/illustrations/authentication-corne
 import { breakpoints, routesSlicer } from '../../helpers/utils';
 import { topNavbarBreakpoint } from '../../config';
 
-const NavbarDropdown = ({ title, items, right, children, handleSetNavbarCollapsed }) => {
+const CustNavbarDropdown = ({ title, parentItem, items, right, children, handleSetNavbarCollapsed }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen(prevState => !prevState);
 
@@ -77,11 +77,11 @@ const NavbarDropdown = ({ title, items, right, children, handleSetNavbarCollapse
             {title === 'Authentication' && (
               <img src={AuthCornerImage} alt="" className="position-absolute b-0 r-0" width={130} />
             )}
-            <CardBody className={classNames('scrollbar px-0 py-2', { 'p-0': title === 'Home' })}>
+            <CardBody className={classNames('scrollbar px-0 py-2', { 'p-0': true })}>
               <div className="nav flex-column">
-                {title === 'Home' ? (
+                {true ? (
                   items.map(({ Url, ModuleName }, index) => (
-                    <DropdownItem tag={Link} to={Url} key={index} onClick={handleSetNavbarCollapsed}>
+                    <DropdownItem tag={Link} to={`/${parentItem.Url}/${Url}` } key={index} onClick={handleSetNavbarCollapsed}>
                       {ModuleName}
                     </DropdownItem>
                   ))
@@ -103,7 +103,7 @@ const NavbarDropdown = ({ title, items, right, children, handleSetNavbarCollapse
                             return (
                               <Fragment key={`${index}-${i}`}>
                                 {title && <div className="nav-link  py-1 text-900 font-weight-bold">{title}</div>}
-                                <DropdownItem tag={Link} to={navItem.Url} key={i} onClick={handleSetNavbarCollapsed}>
+                                <DropdownItem tag={Link} to={`/${navItem.Url}` } key={i} onClick={handleSetNavbarCollapsed}>
                                   {navItem.ModuleName}
                                   {navItem.badge && (
                                     <Badge color={navItem.badge.color || 'soft-success'} pill className="ml-2">
@@ -129,7 +129,7 @@ const NavbarDropdown = ({ title, items, right, children, handleSetNavbarCollapse
   );
 };
 
-NavbarDropdown.propTypes = {
+CustNavbarDropdown.propTypes = {
   title: PropTypes.string.isRequired,
   handleSetNavbarCollapsed: PropTypes.func,
   children: PropTypes.node,
@@ -137,10 +137,10 @@ NavbarDropdown.propTypes = {
   right: PropTypes.bool
 };
 
-NavbarDropdown.defaultProps = {
+CustNavbarDropdown.defaultProps = {
   items: [],
   right: false,
   children: null
 };
 
-export default NavbarDropdown;
+export default CustNavbarDropdown;

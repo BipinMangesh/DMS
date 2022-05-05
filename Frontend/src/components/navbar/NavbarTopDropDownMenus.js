@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import NavbarDropdownComponents from './NavbarDropdownComponents';
-import {
-  buildMenu
-} from '../../routes';
 import { NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { breakpoints } from '../../helpers/utils';
 import { navbarBreakPoint, topNavbarBreakpoint } from '../../config';
 import AppContext from '../../context/Context';
+import CustNavbarDropdown from './CustNavbarDropdown';
 
-const NavbarTopDropDownMenus = ({ setNavbarCollapsed, setShowBurgerMenu }) => {
+const NavbarTopDropDownMenus = (props) => {
+  const { navbarItems, setNavbarCollapsed, setShowBurgerMenu }=props
   const { isCombo, isTopNav } = useContext(AppContext);
 
   //const components = [componentRoutes, pluginRoutes, utilityRoutes];
@@ -25,18 +24,19 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed, setShowBurgerMenu }) => {
   return (
     <>
     {
-      (buildMenu()||[]).map((item,i)=>{
+      (navbarItems).filter(itm=>itm.MenuVisible).map((item,i)=>{
         if((item.children||[]).length===0){
           return  <NavItem key={i} onClick={handleSetNavbarCollapsed}>
-          <NavLink className="nav-link" to={item.to}>
-            {item.name}
+          <NavLink className="nav-link" to={`/${item.Url}`}>
+            {item.ModuleName}
           </NavLink>
         </NavItem>
         }else{
-        return <NavbarDropdownComponents key={i} 
-                title={item.name}
-                items={item.children}
-                handleSetNavbarCollapsed={handleSetNavbarCollapsed}/>
+        return <CustNavbarDropdown parentItem={item}
+          title={item.ModuleName}
+          items={(item.children||[]).filter(chitm=>chitm.MenuVisible)}
+          handleSetNavbarCollapsed={handleSetNavbarCollapsed}
+      />
         }
       })
     }
