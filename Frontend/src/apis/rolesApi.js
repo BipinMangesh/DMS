@@ -5,10 +5,17 @@ export const getAll=()=>{
         url:'/Role/GetRoleList',
     })
 }
-export const saveAndUpdate=(reqObj)=>{
+export const save=(reqObj)=>{
     return service({
         method:'post',
-        url:'/Transmittal',
+        url:'/Role/CreateRole',
+        data:reqObj
+    })
+}
+export const update=(reqObj)=>{
+    return service({
+        method:'post',
+        url:'/Role/UpdateRole',
         data:reqObj
     })
 }

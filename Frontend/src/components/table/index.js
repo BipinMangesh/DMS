@@ -21,8 +21,7 @@ import { Row, Col,
   PaginationLink
 } from "reactstrap";
 import{matchSorter} from "match-sorter";
-import classNames from "classnames";
-import "./table.css";
+/* import "./table.css"; */
 
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter }
@@ -48,7 +47,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 
 fuzzyTextFilterFn.autoRemove = (val) => !val;
 
-const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSearch=false, onSelectedRowsChange, selectedRows }) => {
+const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSearch=false, showPagination=true, onSelectedRowsChange, selectedRows }) => {
   const [switchSearch, setSwitchSearch] = useState(showSearch);
   const toggleSwitchSearch = () => {
     setAllFilters([]);
@@ -131,7 +130,7 @@ const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSea
         </span>
       </div>
 }
-      <Table className="rtable" {...getTableProps()} hover bordered striped responsive>
+      <Table {...getTableProps()} size="sm" hover bordered striped responsive>
         <thead>
           {headerGroups.map((headerGroup,j) => (
             <>
@@ -206,7 +205,7 @@ const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSea
               </tbody>
             ) : (
               <tbody {...getTableBodyProps()}>
-                {page.map((row, i) => {
+                { (showPagination? page:rows).map((row, i) => {
                   prepareRow(row);
                   return (
                     <tr key={i} {...row.getRowProps()}>
@@ -229,8 +228,55 @@ const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSea
           </>
         )}
       </Table>
+      {
+        (page.length>0 && showPagination) && (
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center fs--1">
+              <p className="mb-0">
+                <span className="d-none d-sm-inline-block me-2">{`${(pageIndex*pageSize) + 1} to ${(pageIndex*pageSize)+pageSize} of ${rows.length}`}</span>
+              </p>
+            <p className="mb-0 mx-2">Rows per page:</p>
+            <Input type="select" size='sm' className="w-auto" value={pageSize}
+                  onChange={(e) => {
+                    setPageSize(Number(e.target.value));
+                  }}>
+                    {[10, 20, 30, 50, 100].map((pageSize) => (
+                    <option key={pageSize} value={pageSize}>
+                      {pageSize}
+                    </option>
+              ))}
 
-      {page.length > 0 && (
+            </Input>
+          </div>
+          <div className="d-flex">
+          <Pagination size="sm">
+              <PaginationItem disabled={!canPreviousPage}>
+                <PaginationLink onClick={() => gotoPage(0)}>
+                  {"<<"}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem disabled={!canPreviousPage}>
+                <PaginationLink onClick={() => previousPage()}>
+                  {"<"}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem disabled={!canNextPage}>
+                <PaginationLink onClick={() => nextPage()}>
+                  {">"}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem disabled={!canNextPage}>
+                <PaginationLink onClick={() => gotoPage(pageCount - 1)}>
+                  {">>"}
+                </PaginationLink>
+              </PaginationItem>
+            </Pagination>
+          </div>
+        </div>
+        )
+      }
+
+      {/* {page.length > 0 && (
         <div className={classNames("div-pagination", { "d-none": loading })}>
           <div className="d-flex justify-content-between">
             <span>{`Tot. Rows: ${rows.length} `}</span>
@@ -280,7 +326,7 @@ const RTable = ({ columns, data, loading = true, showFilterSwitch=false, showSea
             </Pagination>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
